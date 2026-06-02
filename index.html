@@ -882,5 +882,45 @@ var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/www.sastrerialareina.cl\/
 /*! This file is auto-generated */
 //# sourceURL=https://www.sastrerialareina.cl/wp-includes/js/wp-emoji-loader.min.js
 </script>
+	<script>
+window.addEventListener('load', function() {
+  if (typeof Swiper === 'undefined') return;
+  document.querySelectorAll('.elementor-widget-slides').forEach(function(widget) {
+    var settings = {};
+    try { settings = JSON.parse(widget.dataset.settings || '{}'); } catch(e) {}
+    var swiperEl = widget.querySelector('.elementor-main-swiper');
+    if (!swiperEl || swiperEl._swiper) return;
+
+    var cfg = {
+      loop: settings.infinite === 'yes',
+      speed: parseInt(settings.transition_speed) || 500,
+      autoplay: settings.autoplay === 'yes' ? {
+        delay: parseInt(settings.autoplay_speed) || 5000,
+        disableOnInteraction: settings.pause_on_interaction === 'yes',
+        pauseOnMouseEnter: settings.pause_on_hover === 'yes'
+      } : false,
+      on: {
+        init: function() {
+          var bg = this.slides[this.activeIndex] && this.slides[this.activeIndex].querySelector('.swiper-slide-bg');
+          if (bg) bg.classList.add('elementor-ken-burns--active');
+        },
+        slideChange: function() {
+          swiperEl.querySelectorAll('.swiper-slide-bg').forEach(function(b) { b.classList.remove('elementor-ken-burns--active'); });
+          var bg = this.slides[this.activeIndex] && this.slides[this.activeIndex].querySelector('.swiper-slide-bg');
+          if (bg) bg.classList.add('elementor-ken-burns--active');
+        }
+      }
+    };
+
+    if (settings.navigation === 'dots') {
+      cfg.pagination = { el: swiperEl.querySelector('.swiper-pagination'), clickable: true };
+    } else if (settings.navigation === 'arrows') {
+      cfg.navigation = { nextEl: widget.querySelector('.elementor-swiper-button-next'), prevEl: widget.querySelector('.elementor-swiper-button-prev') };
+    }
+
+    new Swiper(swiperEl, cfg);
+  });
+});
+</script>
 	</body>
 </html>
