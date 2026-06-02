@@ -1,0 +1,4 @@
+# Scripts de construcción (no son parte del sitio)
+*.ps1
+errores.txt
+urls.txt

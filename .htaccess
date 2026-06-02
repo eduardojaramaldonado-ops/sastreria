@@ -1,0 +1,102 @@
+# ============================================================
+# Sastrería La Reina - .htaccess para sitio estático en Apache
+# ============================================================
+
+# --- HTTPS obligatorio ---
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# --- www canónico (redirigir sin-www → www) ---
+RewriteCond %{HTTP_HOST} ^sastrerialareina\.cl$ [NC]
+RewriteRule ^ https://www.sastrerialareina.cl%{REQUEST_URI} [L,R=301]
+
+# --- Trailing slash: /slug → /slug/ ---
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule ^(.*)$ /$1/ [L,R=301]
+
+# --- Página de error 404 personalizada ---
+ErrorDocument 404 /404.html
+
+# ============================================================
+# COMPRESIÓN GZIP
+# ============================================================
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml
+    AddOutputFilterByType DEFLATE text/css text/javascript
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE application/json application/xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE font/ttf font/otf font/woff font/woff2
+</IfModule>
+
+# ============================================================
+# CACHÉ DE NAVEGADOR
+# ============================================================
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    # HTML: sin caché (siempre fresco)
+    ExpiresByType text/html                 "access plus 0 seconds"
+
+    # CSS y JS: 1 año
+    ExpiresByType text/css                  "access plus 1 year"
+    ExpiresByType application/javascript    "access plus 1 year"
+    ExpiresByType text/javascript           "access plus 1 year"
+
+    # Imágenes: 1 año
+    ExpiresByType image/jpeg                "access plus 1 year"
+    ExpiresByType image/png                 "access plus 1 year"
+    ExpiresByType image/webp                "access plus 1 year"
+    ExpiresByType image/gif                 "access plus 1 year"
+    ExpiresByType image/svg+xml             "access plus 1 year"
+    ExpiresByType image/x-icon              "access plus 1 year"
+
+    # Fuentes: 1 año
+    ExpiresByType font/ttf                  "access plus 1 year"
+    ExpiresByType font/otf                  "access plus 1 year"
+    ExpiresByType font/woff                 "access plus 1 year"
+    ExpiresByType font/woff2                "access plus 1 year"
+</IfModule>
+
+# ============================================================
+# HEADERS DE SEGURIDAD Y RENDIMIENTO
+# ============================================================
+<IfModule mod_headers.c>
+    # Seguridad
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(self)"
+
+    # Caché para assets estáticos (CSS, JS, imágenes)
+    <FilesMatch "\.(css|js|webp|jpg|jpeg|png|gif|svg|woff|woff2|ttf|otf)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    # HTML sin caché
+    <FilesMatch "\.html$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+    </FilesMatch>
+</IfModule>
+
+# ============================================================
+# TIPOS MIME
+# ============================================================
+<IfModule mod_mime.c>
+    AddType image/webp                      .webp
+    AddType font/woff2                      .woff2
+    AddType font/woff                       .woff
+    AddType application/javascript          .js
+</IfModule>
+
+# ============================================================
+# PROTECCIÓN DE ARCHIVOS SENSIBLES
+# ============================================================
+<FilesMatch "^(\.htaccess|\.htpasswd|\.env|descargar_sitio\.ps1|limpiar_html.*\.ps1|fix_.*\.ps1|urls\.txt|errores\.txt)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
