@@ -928,19 +928,28 @@ window.addEventListener('load', function() {
 
 // --- Menú móvil ---
 document.addEventListener('DOMContentLoaded', function() {
-  // Burger toggle
+  // Burger toggle: Elementor usa clase elementor-active + CSS max-height/scaleY
   document.querySelectorAll('.elementor-menu-toggle').forEach(function(toggle) {
     toggle.addEventListener('click', function() {
       var widget = this.closest('.elementor-widget-nav-menu');
       var mobileNav = widget.querySelector('nav.elementor-nav-menu--dropdown.elementor-nav-menu__container');
-      var isOpen = this.getAttribute('aria-expanded') === 'true';
-      this.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-      mobileNav.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
-      mobileNav.style.display = isOpen ? '' : 'block';
+      var isActive = this.classList.contains('elementor-active');
+
+      if (isActive) {
+        this.classList.remove('elementor-active');
+        this.setAttribute('aria-expanded', 'false');
+        mobileNav.setAttribute('aria-hidden', 'true');
+      } else {
+        // Calcular altura real antes de abrir
+        mobileNav.style.setProperty('--menu-height', mobileNav.scrollHeight + 'px');
+        this.classList.add('elementor-active');
+        this.setAttribute('aria-expanded', 'true');
+        mobileNav.setAttribute('aria-hidden', 'false');
+      }
     });
   });
 
-  // Sub-menú Servicios en móvil (toque en el link)
+  // Sub-menú Servicios en móvil
   document.querySelectorAll('nav.elementor-nav-menu--dropdown .menu-item-has-children > a').forEach(function(link) {
     link.addEventListener('click', function(e) {
       var subMenu = this.parentElement.querySelector('ul.sub-menu');
@@ -948,6 +957,9 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       var isOpen = subMenu.style.display === 'block';
       subMenu.style.display = isOpen ? '' : 'block';
+      // Recalcular altura del contenedor padre para que se expanda
+      var mobileNav = this.closest('nav.elementor-nav-menu--dropdown.elementor-nav-menu__container');
+      if (mobileNav) mobileNav.style.setProperty('--menu-height', mobileNav.scrollHeight + 'px');
     });
   });
 });
