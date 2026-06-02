@@ -883,6 +883,7 @@ var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/www.sastrerialareina.cl\/
 //# sourceURL=https://www.sastrerialareina.cl/wp-includes/js/wp-emoji-loader.min.js
 </script>
 	<script>
+// --- Hero Swiper ---
 window.addEventListener('load', function() {
   if (typeof Swiper === 'undefined') return;
   document.querySelectorAll('.elementor-widget-slides').forEach(function(widget) {
@@ -894,9 +895,12 @@ window.addEventListener('load', function() {
     var cfg = {
       loop: settings.infinite === 'yes',
       speed: parseInt(settings.transition_speed) || 500,
+      grabCursor: true,
+      touchRatio: 1,
+      simulateTouch: true,
       autoplay: settings.autoplay === 'yes' ? {
         delay: parseInt(settings.autoplay_speed) || 5000,
-        disableOnInteraction: settings.pause_on_interaction === 'yes',
+        disableOnInteraction: false,
         pauseOnMouseEnter: settings.pause_on_hover === 'yes'
       } : false,
       on: {
@@ -919,6 +923,32 @@ window.addEventListener('load', function() {
     }
 
     new Swiper(swiperEl, cfg);
+  });
+});
+
+// --- Menú móvil ---
+document.addEventListener('DOMContentLoaded', function() {
+  // Burger toggle
+  document.querySelectorAll('.elementor-menu-toggle').forEach(function(toggle) {
+    toggle.addEventListener('click', function() {
+      var widget = this.closest('.elementor-widget-nav-menu');
+      var mobileNav = widget.querySelector('nav.elementor-nav-menu--dropdown.elementor-nav-menu__container');
+      var isOpen = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      mobileNav.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+      mobileNav.style.display = isOpen ? '' : 'block';
+    });
+  });
+
+  // Sub-menú Servicios en móvil (toque en el link)
+  document.querySelectorAll('nav.elementor-nav-menu--dropdown .menu-item-has-children > a').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var subMenu = this.parentElement.querySelector('ul.sub-menu');
+      if (!subMenu) return;
+      e.preventDefault();
+      var isOpen = subMenu.style.display === 'block';
+      subMenu.style.display = isOpen ? '' : 'block';
+    });
   });
 });
 </script>
