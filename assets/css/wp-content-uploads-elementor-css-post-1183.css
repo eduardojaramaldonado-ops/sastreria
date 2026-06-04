@@ -20,3 +20,5 @@ nav.elementor-nav-menu--dropdown.elementor-nav-menu__container .elementor-nav-me
 nav.elementor-nav-menu--dropdown.elementor-nav-menu__container ul.sub-menu{background-color:#d0e8ea;padding:4px 0;display:none;}
 nav.elementor-nav-menu--dropdown.elementor-nav-menu__container ul.sub-menu a{display:block;padding:9px 38px;font-family:"Roboto Condensed",Sans-serif;font-size:15px;font-weight:400;color:#272727;text-decoration:none;white-space:nowrap;}
 .elementor-location-header{position:sticky!important;top:0!important;z-index:99999!important;width:100%!important;}
+.entry-header.ast-header-without-markup,.entry-header.ast-no-title{margin:0!important;padding:0!important;min-height:0!important;display:none!important;}
+#content.site-content,.site-content>.ast-container,#primary.content-area{padding-top:0!important;margin-top:0!important;}
