@@ -30,3 +30,4 @@ body{margin:0!important;padding:0!important;}
 #page{margin:0!important;padding:0!important;}
 .elementor-location-header{margin:0!important;padding-top:0!important;}
 body>noscript,body>script,body>.skip-link,body>a.skip-link{position:absolute!important;top:-9999px!important;left:-9999px!important;height:0!important;width:0!important;overflow:hidden!important;margin:0!important;padding:0!important;}
+.elementor-sticky__spacer{display:none!important;height:0!important;margin:0!important;padding:0!important;}
