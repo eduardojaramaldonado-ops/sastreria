@@ -374,16 +374,66 @@ class="hfeed site" id="page">
 
 
 <div style="height:16px" aria-hidden="true" class="wp-block-spacer"></div>
+<div style="height:16px" aria-hidden="true" class="wp-block-spacer"></div>
 <style>
 .ccm-carousel{position:relative;width:100vw;left:50%;right:50%;margin:0 -50vw 40px -50vw;overflow:hidden;padding:30px 0;background:#faf8f5;}
-.ccm-track{display:flex;gap:20px;width:max-content;animation:ccm-scroll 28s linear infinite;}
-.ccm-carousel:hover .ccm-track{animation-play-state:paused;}
-.ccm-card{flex:0 0 auto;width:320px;height:320px;border-radius:12px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,0.08);}
-.ccm-card img{width:100%;height:100%;object-fit:cover;display:block;}
-@keyframes ccm-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-@media (max-width:767px){.ccm-card{width:220px;height:220px;}}
+.ccm-viewport{width:1060px;max-width:100%;margin:0 auto;overflow:hidden;}
+.ccm-track{display:flex;gap:20px;transition:transform .6s ease;}
+.ccm-card{flex:0 0 340px;width:340px;height:320px;border-radius:12px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,0.08);}
+.ccm-card img{width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;transition:transform .25s ease;}
+.ccm-card img:hover{transform:scale(1.04);}
+@media (max-width:1100px){.ccm-viewport{width:700px;}.ccm-card{flex:0 0 220px;width:220px;height:220px;}}
+@media (max-width:767px){.ccm-viewport{width:240px;}.ccm-card{flex:0 0 220px;width:220px;height:220px;}}
+.ccm-lightbox{display:none;position:fixed;inset:0;background:rgba(10,10,20,0.85);z-index:9999;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;}
+.ccm-lightbox.ccm-open{display:flex;}
+.ccm-lightbox img{max-width:90vw;max-height:88vh;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,0.4);}
+.ccm-lightbox-close{position:absolute;top:20px;right:28px;color:#fff;font-size:34px;line-height:1;cursor:pointer;font-weight:300;}
 </style>
-<div class="ccm-carousel"><div class="ccm-track"><div class="ccm-card"><img src="../assets/img/2026-11-cojin-para-sillas-comedor.webp" alt="Cojín para silla de comedor a medida" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-cojines-para-sillas-de-comedor-set.webp" alt="Set de cojines para sillas de comedor" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-sillas-de-comedor-colores-variados.webp" alt="Sillas de comedor con cojines de variados colores" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-variedad-de-cojines-de-sillas.webp" alt="Variedad de cojines de sillas apilados" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-silla-de-comedor-con-cojin.webp" alt="Silla de comedor con cojín a medida" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-mesa-con-sillas-con-cojines.webp" alt="Mesa de comedor con sillas con cojines" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-cojin-para-sillas-comedor.webp" alt="Cojín para silla de comedor a medida" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-cojines-para-sillas-de-comedor-set.webp" alt="Set de cojines para sillas de comedor" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-sillas-de-comedor-colores-variados.webp" alt="Sillas de comedor con cojines de variados colores" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-variedad-de-cojines-de-sillas.webp" alt="Variedad de cojines de sillas apilados" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-silla-de-comedor-con-cojin.webp" alt="Silla de comedor con cojín a medida" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-mesa-con-sillas-con-cojines.webp" alt="Mesa de comedor con sillas con cojines" loading="lazy" /></div></div></div>
+<div class="ccm-carousel"><div class="ccm-viewport"><div class="ccm-track" id="ccmTrack"><div class="ccm-card"><img src="../assets/img/2026-11-cojin-para-sillas-comedor.webp" alt="Cojín para silla de comedor a medida" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-cojines-para-sillas-de-comedor-set.webp" alt="Set de cojines para sillas de comedor" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-sillas-de-comedor-colores-variados.webp" alt="Sillas de comedor con cojines de variados colores" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-variedad-de-cojines-de-sillas.webp" alt="Variedad de cojines de sillas apilados" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-silla-de-comedor-con-cojin.webp" alt="Silla de comedor con cojín a medida" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-mesa-con-sillas-con-cojines.webp" alt="Mesa de comedor con sillas con cojines" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-cojin-para-sillas-comedor.webp" alt="Cojín para silla de comedor a medida" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-cojines-para-sillas-de-comedor-set.webp" alt="Set de cojines para sillas de comedor" loading="lazy" /></div><div class="ccm-card"><img src="../assets/img/2026-11-sillas-de-comedor-colores-variados.webp" alt="Sillas de comedor con cojines de variados colores" loading="lazy" /></div></div></div></div>
+<div class="ccm-lightbox" id="ccmLightbox"><span class="ccm-lightbox-close">&times;</span><img src="" alt="" id="ccmLightboxImg" /></div>
+<script>
+(function(){
+  var track = document.getElementById('ccmTrack');
+  if (!track) return;
+  var lightbox = document.getElementById('ccmLightbox');
+  var lightboxImg = document.getElementById('ccmLightboxImg');
+  track.addEventListener('click', function(e){
+    var img = e.target.closest('img');
+    if (!img) return;
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add('ccm-open');
+  });
+  lightbox.addEventListener('click', function(){
+    lightbox.classList.remove('ccm-open');
+    lightboxImg.src = '';
+  });
+  var cards = track.children;
+  var total = 6; // original image count
+  var index = 0;
+  function cardStep(){
+    var c = cards[0];
+    var style = getComputedStyle(c);
+    return c.getBoundingClientRect().width + parseFloat(style.marginRight || 0) + 20;
+  }
+  function advance(){
+    index++;
+    track.style.transition = 'transform .6s ease';
+    track.style.transform = 'translateX(-' + (cardStep() * index) + 'px)';
+    if (index === total){
+      setTimeout(function(){
+        track.style.transition = 'none';
+        track.style.transform = 'translateX(0)';
+        index = 0;
+      }, 650);
+    }
+  }
+  var timer = setInterval(advance, 3000);
+  var wrap = track.closest('.ccm-carousel');
+  wrap.addEventListener('mouseenter', function(){ clearInterval(timer); });
+  wrap.addEventListener('mouseleave', function(){ timer = setInterval(advance, 3000); });
+})();
+</script>
 <div style="height:16px" aria-hidden="true" class="wp-block-spacer"></div>
 
 <h2 class="wp-block-heading">Materiales que marcan la diferencia en cojines para sillas de comedor</h2>
