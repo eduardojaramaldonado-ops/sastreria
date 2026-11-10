@@ -3,3 +3,5 @@
 errores.txt
 urls.txt
 *.zip
+
+.env
